@@ -18,7 +18,7 @@ const User = require("../models/User");
 const verifyUser = (req, res, next) => {
 	const token = req.header("auth-token");
 	if (!token) return res.status(400).send("Access Denied..");
-
+	console.log("checkuser",token)
 	try {
 		const verified = jwt.verify(token, process.env.SECRET_TOKEN);
 		req.user = verified;
@@ -53,10 +53,11 @@ const verifyUser = (req, res, next) => {
 const checkUser = (req, res) => {
 	const token = req.header("auth-token");
 	if (!token) return res.status(400).send("Access Denied..");
-
+	console.log("checkuser",token)
 	try {
 		const decoded = jwt.verify(token, process.env.SECRET_TOKEN);
 		var userId = decoded._id;
+		console.log("checkuser userid",userId)
 		// Fetch the user by id
 		User.findOne({ _id: userId }).then(function (user) {
 			// Do something with the user
